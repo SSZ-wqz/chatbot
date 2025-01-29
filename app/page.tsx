@@ -13,7 +13,7 @@ export default function Home() {
         <div className="w-full h-16 bg-gray-200">
           <AppHeader />
         </div>
-        <div className="flex h-full w-full">
+        <div className="flex w-full">
           <div className="w-16 bg-gray-300">
             <Filesys />
           </div>
