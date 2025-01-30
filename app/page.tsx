@@ -14,7 +14,7 @@ export default function Home() {
           <AppHeader />
         </div>
         <div className="flex w-full">
-          <div className="w-16 bg-gray-300">
+          <div className="bg-gray-300">
             <Filesys />
           </div>
           <div className="w-full bg-gray-400">
