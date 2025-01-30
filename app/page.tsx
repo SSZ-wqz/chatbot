@@ -10,14 +10,14 @@ export default function Home() {
   return (
     <div className="flex h-screen w-full">
       <div className="left-panel h-screen w-3/5 bg-gray-100">
-        <div className="w-full h-16 bg-gray-200">
+        <div className="w-full h-16 bg-gray-100">
           <AppHeader />
         </div>
         <div className="flex w-full">
-          <div className="bg-gray-300">
+          <div className="bg-gray-100">
             <Filesys />
           </div>
-          <div className="w-full bg-gray-400">
+          <div className="w-full bg-gray-200 p-4">
             <DiagramView />
           </div>
         </div>

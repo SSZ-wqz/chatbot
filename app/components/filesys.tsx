@@ -6,6 +6,7 @@
   const Filesys = () => {
     const [isOpen, setIsOpen] = useState(false);
     const [isFullyOpen, setIsFullyOpen] = useState(false);
+    const [currentPanel, setCurrentPanel] = useState(2);
 
     const handleOpen = () => {
       setIsOpen(!isOpen);
@@ -21,9 +22,9 @@
     }
 
     return (
-      <div className={`flex flex-col transition-width duration-300 ${isOpen ? 'w-40' : 'w-16'} h-[calc(100vh-64px)] bg-gray-100 items-center justify-between`}>
+      <div className={`flex flex-col transition-width duration-300 ${isOpen ? 'w-40' : 'w-16'} h-[calc(100vh-64px)] items-center justify-between`}>
         <div className="top-panel w-full flex flex-col gap-2 justify-between items-center mt-4">
-          <div className={`${isOpen ? "w-32" : "w-10"} h-10 hover:bg-gray-200 rounded-xl flex items-center justify-center transition-all duration-500 ease-in-out cursor-pointer`}>
+          <div onClick={() => setCurrentPanel(1)} className={`${isOpen ? "w-32" : "w-10"} h-10 ${currentPanel === 1 ? 'h-12 bg-gray-200' : ''} hover:bg-gray-200 rounded-xl flex items-center justify-center transition-all duration-500 ease-in-out cursor-pointer`}>
             {isOpen ? (
               <div className="flex w-full items-center justify-start">
                 <File className="w-6 h-6 text-gray-500 my-3 ml-4 mr-1"/>
@@ -33,7 +34,7 @@
               <File className="w-6 h-6 text-gray-500 my-3"/>
             )}
           </div>
-          <div className={`${isOpen ? "w-32" : "w-10"} h-10 hover:bg-gray-200 rounded-xl flex items-center justify-center transition-all duration-500 ease-in-out cursor-pointer`}>
+          <div onClick={() => setCurrentPanel(2)} className={`${isOpen ? "w-32" : "w-10"} h-10 ${currentPanel === 2 ? 'h-12 bg-gray-200' : ''} rounded-xl flex items-center justify-center transition-all duration-500 ease-in-out cursor-pointer`}>
             {isOpen ? (
               <div className="flex w-full items-center justify-start">
                 <Bot className="w-6 h-6 text-gray-500 my-3 ml-4 mr-1"/>
@@ -43,7 +44,7 @@
               <Bot className="w-6 h-6 text-gray-500 my-3"/>
             )}
           </div>
-          <div className={`${isOpen ? "w-32" : "w-10"} h-10 hover:bg-gray-200 rounded-xl flex items-center justify-center transition-all duration-500 ease-in-out cursor-pointer`}>
+          <div onClick={() => setCurrentPanel(3)} className={`${isOpen ? "w-32" : "w-10"} h-10 ${currentPanel === 3 ? 'h-12 bg-gray-200' : ''} hover:bg-gray-200 rounded-xl flex items-center justify-center transition-all duration-500 ease-in-out cursor-pointer`}>
             {isOpen ? (
               <div className="flex w-full items-center justify-start">
                 <Bolt className="w-6 h-6 text-gray-500 my-3 ml-4 mr-1"/>
@@ -53,7 +54,7 @@
               <Bolt className="w-6 h-6 text-gray-500 my-3"/>
             )}
           </div>
-          <div className={`${isOpen ? "w-32" : "w-10"} h-10 hover:bg-gray-200 rounded-xl flex items-center justify-center transition-all duration-500 ease-in-out cursor-pointer`}>
+          <div onClick={() => setCurrentPanel(4)} className={`${isOpen ? "w-32" : "w-10"} h-10 ${currentPanel === 4 ? 'h-12 bg-gray-200' : ''} hover:bg-gray-200 rounded-xl flex items-center justify-center transition-all duration-500 ease-in-out cursor-pointer`}>
             {isOpen ? (
               <div className="flex w-full items-center justify-start">
                 <User className="w-6 h-6 text-gray-500 my-3 ml-4 mr-1"/>
