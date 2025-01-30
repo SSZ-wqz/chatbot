@@ -1,6 +1,6 @@
 "use client"
 
-import { useState } from "react";
+import { useState, useEffect } from "react";
 import AppHeader from "./components/appHeader";
 import ChatBar from "./components/chatbar";
 import Conversation from "./components/conversation";
@@ -11,6 +11,15 @@ import MCode from "./components/mcode";
 
 export default function Home() {
   const [chatBarHeight, setChatBarHeight] = useState(0);
+  const [message, setMessage] = useState<string[]>([]);
+
+  const handleInputSubmit = (inputValue: string) => {
+    setMessage((prevMessages: string[]) => [...prevMessages, inputValue]);
+  };
+
+  useEffect(() => {
+    console.log(message);
+  }, [message]);
 
   return (
     <div className="flex h-screen w-full">
@@ -34,7 +43,7 @@ export default function Home() {
         </div>
         <div className="w-full">
           <FileUpload />
-          <ChatBar onHeightChange={setChatBarHeight} />
+          <ChatBar onHeightChange={setChatBarHeight} onSubmit={handleInputSubmit} />
         </div>
       </div>
     </div>

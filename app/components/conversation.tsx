@@ -1,4 +1,5 @@
 import { useState, useEffect } from "react";
+import MarkdownPreview from '@uiw/react-markdown-preview';
 
 const Conversation = ({ chatBarHeight }: { chatBarHeight: number }) => {
   const [conversationHeight, setConversationHeight] = useState('80%');

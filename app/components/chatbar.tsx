@@ -3,9 +3,15 @@
 import { useState, useEffect } from "react";
 import { Send } from "lucide-react";
 
-const ChatBar = ({ onHeightChange }: { onHeightChange: (height: number) => void }) => {
+const ChatBar = ({ onHeightChange, onSubmit }: { onHeightChange: (height: number) => void, onSubmit: (input: string) => void }) => {
   const [textareaHeight, setTextareaHeight] = useState(0);
   const [adjustCount, setAdjustCount] = useState(0);
+  const [isLoading, setIsLoading] = useState(false);
+  const [input, setInput] = useState('');
+
+  useEffect(() => {
+    onHeightChange(textareaHeight);
+  }, [textareaHeight, onHeightChange]);
 
   const handleInput = (event: React.ChangeEvent<HTMLTextAreaElement>) => {
     const textarea = event.target;
@@ -29,26 +35,35 @@ const ChatBar = ({ onHeightChange }: { onHeightChange: (height: number) => void 
     }
   };
 
-  useEffect(() => {
-    onHeightChange(textareaHeight);
-  }, [textareaHeight, onHeightChange]);
+  const handleSubmit = (event: React.FormEvent<HTMLFormElement>) => {
+    event.preventDefault();
+    if (!input.trim() || isLoading) return;
 
+    onSubmit(input);
+    setInput('');
+    setIsLoading(true);
+  }
+    
   return (
     <div className="w-full bg-gray-200 rounded-xl p-2 flex items-start">
-      <div className="flex-grow bg-white text-black p-2 rounded-l flex items-center">
-        <textarea 
-          placeholder="输入你的消息" 
-          className="w-full outline-none resize-none" 
-          rows={1}
-          onInput={handleInput}
-        />
-      </div>
-      <button className="group relative bg-gradient-to-r from-blue-300 to-purple-300 text-white p-2 rounded
-       hover:from-blue-400 hover:to-purple-400 transition-all duration-300 flex items-center w-10 hover:w-24
-       hover:rounded-e-xl h-auto">
-        <Send />
-        <span className="absolute right-4 ml-2 opacity-0 group-hover:opacity-100 transition-opacity duration-300 font-bold">Send</span>
-      </button>
+      <form onSubmit={handleSubmit} className="w-full flex">
+        <div className="flex-grow bg-white text-black p-2 rounded-l flex items-center">
+          <textarea
+            value={input}
+            onChange={(e) => setInput(e.target.value)}
+            placeholder="Type your message here..."
+            className="w-full outline-none resize-none"
+            rows={1}
+            onInput={handleInput}
+          />
+        </div>
+        <button className="group relative bg-gradient-to-r from-blue-300 to-purple-300 text-white p-2 rounded
+         hover:from-blue-400 hover:to-purple-400 transition-all duration-300 flex items-center w-10 hover:w-24
+          hover:rounded-e-xl h-auto" disabled={isLoading} type="submit">
+          <Send />
+          <span className="absolute right-4 ml-2 opacity-0 group-hover:opacity-100 transition-opacity duration-300 font-bold">Send</span>
+        </button>
+      </form>
     </div>
   );
 }
