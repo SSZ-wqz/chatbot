@@ -1,3 +1,6 @@
+"use client"
+
+import { useState } from "react";
 import AppHeader from "./components/appHeader";
 import ChatBar from "./components/chatbar";
 import Conversation from "./components/conversation";
@@ -7,6 +10,8 @@ import FileUpload from "./components/fileupl";
 import MCode from "./components/mcode";
 
 export default function Home() {
+  const [chatBarHeight, setChatBarHeight] = useState(0);
+
   return (
     <div className="flex h-screen w-full">
       <div className="left-panel h-screen w-3/5 bg-gray-100">
@@ -22,14 +27,14 @@ export default function Home() {
           </div>
         </div>
       </div>
-      <div className="right-panel flex flex-col h-screen w-2/5 bg-gray-500">
-        <div className="w-full h-[80%] bg-gray-600">
+      <div className="right-panel flex flex-col h-screen w-2/5 p-4 bg-gray-100">
+        <div className="w-full" style={{ height: `calc(100% - ${chatBarHeight}px)` }}>
           <MCode />
-          <Conversation />
+          <Conversation chatBarHeight={chatBarHeight} />
         </div>
-        <div className="w-full h-[20%] bg-gray-700">
+        <div className="w-full">
           <FileUpload />
-          <ChatBar />
+          <ChatBar onHeightChange={setChatBarHeight} />
         </div>
       </div>
     </div>
