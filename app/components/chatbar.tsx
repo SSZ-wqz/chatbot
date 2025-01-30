@@ -11,17 +11,19 @@ const ChatBar = ({ onHeightChange }: { onHeightChange: (height: number) => void 
     const textarea = event.target;
     const lineCount = textarea.value.split('\n').length;
 
-    if (lineCount <= 3) {
-      setAdjustCount(adjustCount - 1);
-    } else {
-      setAdjustCount(adjustCount + 1);
-    }
+    const newAdjustCount = lineCount - 1;
+    setAdjustCount(newAdjustCount);
 
-    if (adjustCount < 3) {
+    if (newAdjustCount <= 3) {
       textarea.style.height = 'auto';
       const newHeight = textarea.scrollHeight;
       textarea.style.height = `${newHeight}px`;
       setTextareaHeight(newHeight);
+
+      const button = textarea.parentElement?.nextElementSibling as HTMLButtonElement;
+      if (button) {
+        button.style.height = `${newHeight + 16}px`;
+      }
     } else {
       textarea.style.overflow = 'auto';
     }
@@ -41,8 +43,11 @@ const ChatBar = ({ onHeightChange }: { onHeightChange: (height: number) => void 
           onInput={handleInput}
         />
       </div>
-      <button className="bg-blue-500 text-white p-2 rounded-r hover:bg-blue-600">
+      <button className="group relative bg-gradient-to-r from-blue-300 to-purple-300 text-white p-2 rounded
+       hover:from-blue-400 hover:to-purple-400 transition-all duration-300 flex items-center w-10 hover:w-24
+       hover:rounded-e-xl h-auto">
         <Send />
+        <span className="absolute right-4 ml-2 opacity-0 group-hover:opacity-100 transition-opacity duration-300 font-bold">Send</span>
       </button>
     </div>
   );
