@@ -3,15 +3,28 @@
 import { useState, useEffect } from "react";
 import { Send } from "lucide-react";
 
-const ChatBar = ({ onHeightChange }) => {
+const ChatBar = ({ onHeightChange }: { onHeightChange: (height: number) => void }) => {
   const [textareaHeight, setTextareaHeight] = useState(0);
+  const [adjustCount, setAdjustCount] = useState(0);
 
   const handleInput = (event: React.ChangeEvent<HTMLTextAreaElement>) => {
     const textarea = event.target;
-    textarea.style.height = 'auto';
-    const newHeight = textarea.scrollHeight;
-    textarea.style.height = `${newHeight}px`;
-    setTextareaHeight(newHeight);
+    const lineCount = textarea.value.split('\n').length;
+
+    if (lineCount <= 3) {
+      setAdjustCount(adjustCount - 1);
+    } else {
+      setAdjustCount(adjustCount + 1);
+    }
+
+    if (adjustCount < 3) {
+      textarea.style.height = 'auto';
+      const newHeight = textarea.scrollHeight;
+      textarea.style.height = `${newHeight}px`;
+      setTextareaHeight(newHeight);
+    } else {
+      textarea.style.overflow = 'auto';
+    }
   };
 
   useEffect(() => {
